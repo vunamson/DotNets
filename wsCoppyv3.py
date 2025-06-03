@@ -69,7 +69,7 @@ def parse_html(html):
 
 # Hàm crawl một trang cụ thể với giới hạn request
 async def crawl_page(sem, session, object_id, max_retries=1):
-    url = f"https://broadwaypinups.shop/?attachment_id={object_id}"
+    url = f"https://top5lab.com/?wc-ajax=update_order_review{object_id}"
 
     async with sem:  # Giới hạn số lượng request đồng thời
         for attempt in range(max_retries):
