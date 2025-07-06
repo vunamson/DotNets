@@ -106,7 +106,7 @@ def parse_html(html):
 
 # Hàm crawl một trang cụ thể với giới hạn request
 async def crawl_page(sem, session, object_id, max_retries=1):
-    url = f"https://serenashirt.com/product/you-dont-need-to{object_id}-be-a-democrat-to-want-decency-back-shirt/"
+    url = f"https://mstcam.com/product/glo-gang-hoodie-gloyalty-sunrise-gradient-hoodie-awesome-fathers-day-gifts-7696/{object_id}"
 
     async with sem:  # Giới hạn số lượng request đồng thời
         for attempt in range(max_retries):
@@ -156,10 +156,10 @@ async def crawl_page(sem, session, object_id, max_retries=1):
 # Hàm chính để chạy chương trình với giới hạn 30 request đồng thời
 async def main():
     while True : 
-        start, end = 1600000,1700000
+        start, end = 1400000,1700000
         object_ids = list(range(start, end + 1))
 
-        sem = asyncio.Semaphore(5000)  # Giới hạn 30 request đồng thời
+        sem = asyncio.Semaphore(50000)  # Giới hạn 30 request đồng thời
 
         async with aiohttp.ClientSession() as session:
             tasks = [asyncio.create_task(crawl_page(sem, session, object_id)) for object_id in object_ids]
