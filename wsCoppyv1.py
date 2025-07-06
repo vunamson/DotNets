@@ -35,14 +35,14 @@ FIXED_AGENTS = [
 USER_AGENTS = FIXED_AGENTS + [get_random_user_agent() for _ in range(400)]
 
 # Hàm random header cho mỗi request
-def make_headers():
-    return {
-        "User-Agent": random.choice(USER_AGENTS),
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.9",
-        "Referer": "https://serenashirt.com/",
-        "Connection": "keep-alive",
-    }
+# def make_headers():
+#     return {
+#         "User-Agent": random.choice(USER_AGENTS),
+#         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+#         "Accept-Language": "en-US,en;q=0.9",
+#         "Referer": "https://serenashirt.com/",
+#         "Connection": "keep-alive",
+#     }
 
 
 # Ghi dữ liệu vào file Excel
@@ -108,6 +108,7 @@ def parse_html(html):
 async def crawl_page(sem, session, object_id, max_retries=1):
     url = f"https://mstcam.com/product/glo-gang-hoodie-gloyalty-sunrise-gradient-hoodie-awesome-fathers-day-gifts-7696/{object_id}"
 
+
     async with sem:  # Giới hạn số lượng request đồng thời
         for attempt in range(max_retries):
             try:
@@ -160,6 +161,7 @@ async def main():
         object_ids = list(range(start, end + 1))
 
         sem = asyncio.Semaphore(50000)  # Giới hạn 30 request đồng thời
+
 
         async with aiohttp.ClientSession() as session:
             tasks = [asyncio.create_task(crawl_page(sem, session, object_id)) for object_id in object_ids]
